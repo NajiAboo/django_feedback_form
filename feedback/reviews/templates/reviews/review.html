@@ -1,3 +1,4 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Review</title>
+    <link rel="stylesheet" href="{% static "reviews/style.css" %}">
 </head>
 <body>
    
     <form method="POST" action="/">
         {% csrf_token %}
-        <div class="form-control {%if form.user_name.errors%} errors{%endif%}">
-            {{form.user_name.label_tag}}
-            {{form.user_name}}
-            {{form.user_name.errors}}
+
+        {% for field in form %}
+        <div class="form-control {%if form.field.errors%} errors{%endif%}">
+            {{field.label_tag}}
+            {{field}}
+            {{field.errors}}
         </div>
+
+        {% endfor %}
+         
         <button>Send</button>
     </form>
 </body>
